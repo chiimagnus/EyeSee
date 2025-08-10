@@ -17,11 +17,7 @@
   - [x] 设计滤镜切换入口 (Filter Switch Entry)
   - [x] 设计图片预览/相册入口 (Gallery/Photos Entry)
 - [x] 设计滤镜选择界面 (Filter Selection Screen)
-  - [x] 设计滤镜列表布局 (Filter List Layout)
-  - [x] 设计单个滤镜项样式 (Filter Item Style)
-  - [x] 设计选中状态 (Selected State)
-- [ ] 设计设置界面 (Settings Screen) - 应用内版本
-- [ ] 导出设计稿并存档 (Export and Archive Designs)
+- [x] 设计图片预览/相册界面 (Gallery/Photos Screen)
 
 ### 3. 实现基础 UI 组件
 - [ ] 创建自定义拍照按钮 (Custom Capture Button)
