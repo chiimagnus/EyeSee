@@ -3,9 +3,12 @@
 ## 阶段一：UI/UX 设计与核心组件实现 (MVP 基础)
 
 ### 1. 研究并定义 Neo-Brutalism 设计语言
-- [ ] 深入研究 Neo-Brutalism 设计原则与视觉元素 (Research Principles & Elements)
-- [ ] 确定项目整体配色方案、字体和核心设计风格 (Define Color Scheme, Fonts, Style)
-- [ ] 整理设计规范文档 (Create Design Spec Document)
+- [x] 深入研究 Neo-Brutalism 设计原则与视觉元素 (Research Principles & Elements)
+- [x] 确定项目整体配色方案、字体和核心设计风格 (Define Color Scheme, Fonts, Style)
+- [x] 整理设计规范文档 (Create Design Spec Document)
+  - [x] 创建 Neo-Brutalism 风格指南 (HTML) (`.superdesign/design_iterations/neo_brutalism_style_guide_1.html`)
+  - [x] 创建 Neo-Brutalism 研究笔记 (`.superdesign/design_iterations/neo_brutalism_research_notes_1.md`)
+  - [x] 创建 Neo-Brutalism 设计规范 (Markdown) (`.superdesign/design_iterations/neo_brutalism_style_guide_1.md`)
 
 ### 2. 使用 Super Design 创建 UI 设计稿
 - [ ] 设计主相机界面布局 (Main Camera Screen Layout)

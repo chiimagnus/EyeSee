@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EyeSee Neo-Brutalism Style Guide</title>
+    <style>
+        /* Neo-Brutalism Style Guide for EyeSee */
+        :root {
+          --background: oklch(1.0000 0 0);
+          --foreground: oklch(0 0 0);
+          --card: oklch(1.0000 0 0);
+          --card-foreground: oklch(0 0 0);
+          --popover: oklch(1.0000 0 0);
+          --popover-foreground: oklch(0 0 0);
+          --primary: oklch(0.6489 0.2370 26.9728); /* 橙色 */
+          --primary-foreground: oklch(1.0000 0 0);
+          --secondary: oklch(0.9680 0.2110 109.7692); /* 绿色 */
+          --secondary-foreground: oklch(0 0 0);
+          --muted: oklch(0.9551 0 0);
+          --muted-foreground: oklch(0.3211 0 0);
+          --accent: oklch(0.5635 0.2408 260.8178); /* 蓝色 */
+          --accent-foreground: oklch(1.0000 0 0);
+          --destructive: oklch(0 0 0);
+          --destructive-foreground: oklch(1.0000 0 0);
+          --border: oklch(0 0 0);
+          --input: oklch(0 0 0);
+          --ring: oklch(0.6489 0.2370 26.9728);
+          --chart-1: oklch(0.6489 0.2370 26.9728);
+          --chart-2: oklch(0.9680 0.2110 109.7692);
+          --chart-3: oklch(0.5635 0.2408 260.8178);
+          --chart-4: oklch(0.7323 0.2492 142.4953);
+          --chart-5: oklch(0.5931 0.2726 328.3634);
+          --sidebar: oklch(0.9551 0 0);
+          --sidebar-foreground: oklch(0 0 0);
+          --sidebar-primary: oklch(0.6489 0.2370 26.9728);
+          --sidebar-primary-foreground: oklch(1.0000 0 0);
+          --sidebar-accent: oklch(0.5635 0.2408 260.8178);
+          --sidebar-accent-foreground: oklch(1.0000 0 0);
+          --sidebar-border: oklch(0 0 0);
+          --sidebar-ring: oklch(0.6489 0.2370 26.9728);
+          --font-sans: 'DM Sans', sans-serif;
+          --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+          --font-mono: 'Space Mono', monospace;
+          --radius: 0px;
+          --shadow-2xs: 4px 4px 0px 0px hsl(0 0% 0% / 0.50);
+          --shadow-xs: 4px 4px 0px 0px hsl(0 0% 0% / 0.50);
+          --shadow-sm: 4px 4px 0px 0px hsl(0 0% 0% / 1.00), 4px 1px 2px -1px hsl(0 0% 0% / 1.00);
+          --shadow: 4px 4px 0px 0px hsl(0 0% 0% / 1.00), 4px 1px 2px -1px hsl(0 0% 0% / 1.00);
+          --shadow-md: 4px 4px 0px 0px hsl(0 0% 0% / 1.00), 4px 2px 4px -1px hsl(0 0% 0% / 1.00);
+          --shadow-lg: 4px 4px 0px 0px hsl(0 0% 0% / 1.00), 4px 4px 6px -1px hsl(0 0% 0% / 1.00);
+          --shadow-xl: 4px 4px 0px 0px hsl(0 0% 0% / 1.00), 4px 8px 10px -1px hsl(0 0% 0% / 1.00);
+          --shadow-2xl: 4px 4px 0px 0px hsl(0 0% 0% / 2.50);
+          --tracking-normal: 0em;
+          --spacing: 0.25rem;
+
+          --radius-sm: calc(var(--radius) - 4px);
+          --radius-md: calc(var(--radius) - 2px);
+          --radius-lg: var(--radius);
+          --radius-xl: calc(var(--radius) + 4px);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--background);
+            color: var(--foreground);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        .color-palette {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .color-box {
+            width: 100px;
+            height: 100px;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .primary { background-color: var(--primary); color: var(--primary-foreground); }
+        .secondary { background-color: var(--secondary); color: var(--secondary-foreground); }
+        .accent { background-color: var(--accent); color: var(--accent-foreground); }
+        .muted { background-color: var(--muted); color: var(--muted-foreground); }
+
+        .button {
+            padding: 10px 20px;
+            border: 2px solid var(--border);
+            background-color: var(--background);
+            color: var(--foreground);
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            margin: 5px;
+        }
+
+        .button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px hsl(0 0% 0% / 1.00);
+        }
+
+        .button-primary {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+        }
+
+        .button-secondary {
+            background-color: var(--secondary);
+            color: var(--secondary-foreground);
+        }
+
+        .input-field {
+            padding: 10px;
+            border: 2px solid var(--border);
+            background-color: var(--background);
+            color: var(--foreground);
+            box-shadow: var(--shadow);
+            margin: 5px 0;
+            width: calc(100% - 24px);
+        }
+
+        .card {
+            border: 2px solid var(--border);
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: var(--shadow);
+            background-color: var(--card);
+            color: var(--card-foreground);
+        }
+
+        .typography-example {
+            margin: 10px 0;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>EyeSee Neo-Brutalism Style Guide</h1>
+        <p>这份文档定义了 EyeSee 应用的 Neo-Brutalism 设计语言，包括色彩、字体、组件样式等。</p>
+
+        <h2>1. 色彩 (Colors)</h2>
+        <p>采用高对比度、鲜艳的色彩搭配，体现 Neo-Brutalism 的核心特征。</p>
+        <div class="color-palette">
+            <div class="color-box primary">Primary<br/>#C44</div>
+            <div class="color-box secondary">Secondary<br/>#7ED</div>
+            <div class="color-box accent">Accent<br/>#45B7D1</div>
+            <div class="color-box muted">Muted<br/>#F0F0F0</div>
+            <div class="color-box" style="background-color: #000; color: #FFF;">Black<br/>#000</div>
+            <div class="color-box" style="background-color: #FFF; color: #000; border: 2px solid #000;">White<br/>#FFF</div>
+        </div>
+
+        <h2>2. 字体 (Typography)</h2>
+        <p>主要使用 <strong>DM Sans</strong> 作为无衬线字体，<strong>Space Mono</strong> 作为等宽字体。</p>
+        <div class="typography-example">
+            <h1>Heading 1 (H1)</h1>
+            <h2>Heading 2 (H2)</h2>
+            <h3>Heading 3 (H3)</h3>
+            <p>这是一个段落 (Paragraph)。The quick brown fox jumps over the lazy dog. ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890</p>
+            <code class="input-field">这是一段代码 (Code): print("Hello, EyeSee!")</code>
+        </div>
+
+        <h2>3. 组件 (Components)</h2>
+
+        <h3>按钮 (Buttons)</h3>
+        <button class="button">默认按钮</button>
+        <button class="button button-primary">主要按钮</button>
+        <button class="button button-secondary">次要按钮</button>
+
+        <h3>输入框 (Input Fields)</h3>
+        <input type="text" class="input-field" placeholder="请输入文本...">
+
+        <h3>卡片 (Cards)</h3>
+        <div class="card">
+            <h3>卡片标题</h3>
+            <p>这是一个卡片组件的示例。它具有粗边框和明显的阴影，符合 Neo-Brutalism 风格。</p>
+        </div>
+
+        <h2>4. 设计原则 (Design Principles)</h2>
+        <ul>
+            <li><strong>Raw & Unrefined:</strong> 拥抱“未完成”的美学，不刻意追求完美对齐或光滑效果。</li>
+            <li><strong>High Contrast:</strong> 大胆使用对比强烈的颜色和元素。</li>
+            <li><strong>Asymmetric Layouts:</strong> 采用非对称的布局方式，增加视觉动感。</li>
+            <li><strong>Exposed Elements:</strong> 明确展示按钮、边框等交互元素。</li>
+            <li><strong>Bold Visuals:</strong> 使用粗线条、大字体和鲜艳色彩。</li>
+        </ul>
+    </div>
+</body>
+</html>
