@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EyeSee Main Screen</title>
+    <!-- Import Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Import Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+    <!-- Import our Neo-Brutalism Theme -->
+    <link rel="stylesheet" href="eyesee_neo_brutalism_theme_1.css">
+
+    <style>
+        /* Specific styles for the main screen layout */
+        #camera-preview {
+            flex-grow: 1;
+            background-color: #333; /* Placeholder for camera feed */
+            background-image: url('https://placehold.co/1080x1920/333333/CCCCCC?text=Camera+Preview');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            border: 2px dashed var(--border); /* Dashed border to indicate preview area */
+            margin: 10px;
+        }
+
+        #bottom-control-bar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+            background-color: var(--muted);
+            border-top: 2px solid var(--border);
+        }
+
+        .control-button {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background-color: var(--background);
+            color: var(--foreground);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.1s ease-out; /* For hover and press effects */
+        }
+
+        .control-button:hover {
+           /*  transform: translate(2px, 2px); */
+            box-shadow: 2px 2px 0px 0px hsl(0 0% 0% / 1.00);
+        }
+
+        .control-button:active {
+            transform: scale(0.9);
+            box-shadow: 1px 1px 0px 0px hsl(0 0% 0% / 1.00);
+        }
+
+        #capture-button {
+            width: 80px;
+            height: 80px;
+            background-color: var(--primary); /* Red/Orange color for capture */
+            color: var(--primary-foreground);
+        }
+
+        #filter-button {
+            /* Can be styled differently if needed */
+        }
+
+        #gallery-button {
+            /* Can be styled differently if needed */
+        }
+
+        /* Icon sizing */
+        .control-button i {
+            width: 32px;
+            height: 32px;
+        }
+    </style>
+</head>
+<body>
+    <div id="main-container">
+        <!-- Camera Preview Area -->
+        <div id="camera-preview">
+            <!-- In a real app, this would be the live camera feed -->
+            CAMERA PREVIEW
+        </div>
+
+        <!-- Bottom Control Bar -->
+        <div id="bottom-control-bar">
+            <!-- Gallery/Photos Button -->
+            <div class="control-button" id="gallery-button" title="查看照片">
+                <!-- Using Lucide icon for Gallery -->
+                <i data-lucide="image"></i>
+            </div>
+
+            <!-- Capture Button -->
+            <div class="control-button" id="capture-button" title="拍照">
+                <!-- A simple circle icon or text can represent the capture button -->
+                <i data-lucide="circle"></i>
+            </div>
+
+            <!-- Filter Button -->
+            <div class="control-button" id="filter-button" title="切换滤镜">
+                <!-- Using Lucide icon for Filter -->
+                <i data-lucide="filter"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <!-- Basic interaction simulation (for design preview only) -->
+    <script>
+        document.getElementById('capture-button').addEventListener('click', function() {
+            // Simulate flash effect
+            document.body.style.backgroundColor = 'white';
+            document.body.style.color = 'black';
+            setTimeout(() => {
+                document.body.style.backgroundColor = '';
+                document.body.style.color = '';
+            }, 150);
+        });
+    </script>
+</body>
+</html>
