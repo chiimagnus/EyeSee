@@ -1,71 +1,72 @@
 # EyeSee 项目计划
 
-## 阶段一：研究与规划
+## 阶段一：UI/UX 设计与核心组件实现 (MVP 基础)
 
-### 1. 研究动物视觉科学
-- [ ] 收集不同动物（狗、猫、鸟、蜜蜂等）的视觉特性数据
-- [ ] 分析如何将这些特性转化为数字参数
-- [ ] 整理并文档化研究结果
+### 1. 研究并定义 Neo-Brutalism 设计语言
+- [ ] 深入研究 Neo-Brutalism 设计原则与视觉元素 (Research Principles & Elements)
+- [ ] 确定项目整体配色方案、字体和核心设计风格 (Define Color Scheme, Fonts, Style)
+- [ ] 整理设计规范文档 (Create Design Spec Document)
 
-### 2. 研究图像处理技术
-- [ ] 深入了解 Core Image 框架
-- [ ] 深入了解 Metal 框架
-- [ ] 比较 Core Image 与 Metal 的优缺点和适用场景
-- [ ] 确定 EyeSee 项目的图像处理技术栈
+### 2. 使用 Super Design 创建 UI 设计稿
+- [ ] 设计主相机界面布局 (Main Camera Screen Layout)
+  - [ ] 包含摄像头预览区域 (Camera Preview Area)
+  - [ ] 设计拍照按钮 (Capture Button)
+  - [ ] 设计滤镜切换入口 (Filter Switch Entry)
+  - [ ] 设计设置入口 (Settings Entry)
+- [ ] 设计滤镜选择界面 (Filter Selection Screen)
+- [ ] 设计设置界面 (Settings Screen) - 应用内版本
+- [ ] 导出设计稿并存档 (Export and Archive Designs)
 
-### 3. 设计通用视觉模拟框架
-- [ ] 定义核心视觉参数（基于研究结果）
-  - [ ] 色觉 (Color Vision)
-  - [ ] 视野 (Field of View)
-  - [ ] 夜视能力 (Night Vision)
-  - [ ] 动态感知 (Motion Detection)
-  - [ ] 分辨率 (Resolution)
-  - [ ] 特殊能力 (Special Abilities)
-- [ ] 创建参数配置模型
-- [ ] 实现基础滤镜应用逻辑
+### 3. 实现基础 UI 组件
+- [ ] 创建自定义拍照按钮 (Custom Capture Button)
+- [ ] 创建滤镜切换控件 (Filter Switch Control)
+- [ ] 实现主界面布局 (Implement Main Layout based on Design)
+- [ ] 实现滤镜选择界面 (Implement Filter Selection UI)
+- [ ] 实现应用内设置界面 (Implement In-App Settings UI)
 
-### 4. 实现基础 UI 结构
-- [ ] 重构 ContentView，移除默认的列表视图
-- [ ] 添加摄像头预览视图
-- [ ] 集成通用视觉模拟滤镜到摄像头预览
-- [ ] 实现精简的主界面布局（参考 Apple 相机 App）
+## 阶段二：核心功能开发与集成
 
-## 阶段二：Brutalism 风格 UI/UX 设计与实现
+### 4. 搭建基础相机功能
+- [ ] 实现摄像头预览视图 (Camera Preview)
+- [ ] 实现基础拍照功能 (Capture Photo)
+- [ ] 实现照片保存到相册功能 (Save to Album)
 
-### 5. 设计 Brutalism 风格界面
-- [ ] 使用 Super Design 工具设计主界面布局
-- [ ] 设计拍照按钮、滤镜切换按钮等核心控件
-- [ ] 设计系统设置中的参数配置界面
+### 5. 实现基础滤镜框架
+- [ ] 定义基础滤镜接口 (Define Filter Interface)
+- [ ] 创建一个占位符滤镜 (Placeholder Filter)
+- [ ] 将基础滤镜应用到相机预览 (Apply Filter to Preview)
 
-### 6. 实现 Brutalism 风格 UI 组件
-- [ ] 创建自定义拍照按钮、滤镜切换按钮等控件
-- [ ] 实现高对比度配色方案
-- [ ] 应用非对称布局和实验性元素
+### 6. 实现滤镜切换
+- [ ] 实现滤镜切换逻辑 (Filter Switching Logic)
+- [ ] 实现滤镜名称显示 (Display Filter Name)
+
+### 7. 实现系统设置集成 (iOS Settings App)
+- [ ] 配置 Settings.bundle 以支持系统设置 (Configure Settings.bundle)
+- [ ] 在系统设置中添加滤镜开关和参数配置 (Add Filter Toggles & Parameters)
+- [ ] 实现应用内跳转到系统设置的功能 (In-App Link to System Settings)
+- [ ] 实现应用读取系统设置配置的功能 (App Reads System Settings Config)
 
 ## 阶段三：功能完善与优化
 
-### 7. 实现滤镜切换与管理
-- [ ] 创建预设滤镜（狗、猫、鸟、蜜蜂）
-- [ ] 实现滤镜快速切换功能
-- [ ] 实现滤镜名称显示
+### 8. 开发真实动物视觉滤镜
+- [ ] 实现狗狗滤镜 (Dog Filter)
+- [ ] 实现猫咪滤镜 (Cat Filter)
+- [ ] 实现鸟类滤镜 (Bird Filter)
+- [ ] (可选) 实现蜜蜂滤镜 (Bee Filter)
 
-### 8. 添加截图与保存功能
-- [ ] 实现截图功能
-- [ ] 添加图片保存到相册功能
-- [ ] 实现缩略图显示
-
-### 9. 实现系统设置集成
-- [ ] 将参数配置和预设管理功能移到系统设置中
-- [ ] 实现应用内跳转到系统设置的功能
+### 9. 添加高级功能
+- [ ] 实现照片导入与处理 (Import & Process Photos)
+- [ ] 实现滤镜参数微调 (Fine-tune Filter Parameters)
+- [ ] 添加科普知识展示 (Show Scientific Knowledge)
 
 ## 阶段四：测试与发布准备
 
 ### 10. 进行全面测试
-- [ ] 功能测试
-- [ ] UI/UX 测试
-- [ ] 性能优化
+- [ ] 功能测试 (Functional Testing)
+- [ ] UI/UX 测试 (UI/UX Testing)
+- [ ] 性能优化 (Performance Optimization)
 
 ### 11. 准备发布
-- [ ] 完善 README 文档
-- [ ] 添加应用图标和启动画面
-- [ ] 准备应用商店描述
+- [ ] 完善 README 文档 (Complete README)
+- [ ] 添加应用图标和启动画面 (App Icon & Launch Screen)
+- [ ] 准备应用商店描述 (App Store Description)
