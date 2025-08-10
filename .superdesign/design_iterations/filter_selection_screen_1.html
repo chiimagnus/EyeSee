@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EyeSee Filter Selection</title>
+    <!-- Import Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Import Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+    <!-- Import our Neo-Brutalism Theme -->
+    <link rel="stylesheet" href="eyesee_neo_brutalism_theme_1.css">
+
+    <style>
+        body {
+            /* Override default margin/padding for full-screen modal feel */
+            margin: 0;
+            padding: 0;
+            /* Allow vertical scrolling if content overflows */
+            overflow-y: auto; 
+        }
+        #filter-screen-container {
+            height: 100vh; /* Full viewport height */
+            width: 100vw;  /* Full viewport width */
+            background-color: var(--background);
+            color: var(--foreground);
+            display: flex;
+            flex-direction: column;
+        }
+
+        #filter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 2px solid var(--border);
+            background-color: var(--muted);
+            flex-shrink: 0; /* Prevent header from shrinking */
+        }
+
+        #filter-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        #close-button {
+            background: none;
+            border: 2px solid var(--border);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+        }
+
+        #close-button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px hsl(0 0% 0% / 1.00);
+        }
+
+        #close-button:active {
+            transform: scale(0.9);
+            box-shadow: 1px 1px 0px 0px hsl(0 0% 0% / 1.00);
+        }
+
+        #filter-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Two columns */
+            gap: 20px;
+            padding: 20px;
+            overflow-y: auto; /* Allow scrolling within the list */
+            flex-grow: 1; /* Take up remaining space */
+        }
+
+        .filter-item {
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            background-color: var(--card);
+            color: var(--card-foreground);
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .filter-item:hover {
+            transform: translate(-2px, -2px); /* Slight lift effect on hover */
+            box-shadow: 6px 6px 0px 0px hsl(0 0% 0% / 1.00);
+        }
+
+        .filter-item.selected {
+            border-color: var(--primary);
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            box-shadow: inset 0 0 0 2px var(--border); /* Inset border for selected state */
+        }
+
+        .filter-icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        .filter-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .filter-description {
+            font-size: 0.8rem;
+            color: var(--muted-foreground);
+            margin-top: 5px;
+        }
+        .filter-item.selected .filter-description {
+             color: var(--primary-foreground);
+             opacity: 0.8;
+        }
+
+        /* On larger screens, we might want 3 columns */
+        @media (min-width: 768px) {
+            #filter-list {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="filter-screen-container">
+        <!-- Header with title and close button -->
+        <div id="filter-header">
+            <h1 id="filter-title">选择动物滤镜</h1>
+            <button id="close-button" title="关闭">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+
+        <!-- Scrollable list of filters -->
+        <div id="filter-list">
+            <!-- Each filter item -->
+            <div class="filter-item selected" data-filter="dog">
+                <i data-lucide="dog" class="filter-icon"></i>
+                <div class="filter-name">狗狗</div>
+                <div class="filter-description">蓝黄色盲视觉</div>
+            </div>
+
+            <div class="filter-item" data-filter="cat">
+                <i data-lucide="cat" class="filter-icon"></i>
+                <div class="filter-name">猫咪</div>
+                <div class="filter-description">强化暗光视觉</div>
+            </div>
+
+            <div class="filter-item" data-filter="bird">
+                <i data-lucide="bird" class="filter-icon"></i>
+                <div class="filter-name">鸟类</div>
+                <div class="filter-description">更广色域视觉</div>
+            </div>
+
+            <div class="filter-item" data-filter="bee">
+                <i data-lucide="activity" class="filter-icon"></i> <!-- Using 'activity' as a placeholder for bee -->
+                <div class="filter-name">蜜蜂</div>
+                <div class="filter-description">复眼与紫外纹路</div>
+            </div>
+
+            <!-- Placeholder for more filters -->
+            <div class="filter-item" data-filter="fish">
+                <i data-lucide="fish" class="filter-icon"></i>
+                <div class="filter-name">鱼类</div>
+                <div class="filter-description">水下视觉</div>
+            </div>
+
+            <div class="filter-item" data-filter="snake">
+                <i data-lucide="eye" class="filter-icon"></i> <!-- Using 'eye' as a placeholder for snake -->
+                <div class="filter-name">蛇类</div>
+                <div class="filter-description">热感应视觉</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <!-- Basic interaction simulation (for design preview only) -->
+    <script>
+        const filterItems = document.querySelectorAll('.filter-item');
+        filterItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove 'selected' class from all items
+                filterItems.forEach(i => i.classList.remove('selected'));
+                // Add 'selected' class to the clicked item
+                this.classList.add('selected');
+            });
+        });
+
+        document.getElementById('close-button').addEventListener('click', function() {
+             alert('关闭按钮被点击。在实际应用中，这将关闭滤镜选择界面。');
+        });
+    </script>
+</body>
+</html>
