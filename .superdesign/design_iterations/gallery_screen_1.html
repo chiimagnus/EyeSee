@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EyeSee Gallery</title>
+    <!-- Import Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Import Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+    <!-- Import our Neo-Brutalism Theme -->
+    <link rel="stylesheet" href="eyesee_neo_brutalism_theme_1.css">
+
+    <style>
+        body {
+            /* Override default margin/padding for full-screen modal feel */
+            margin: 0;
+            padding: 0;
+            /* Allow vertical scrolling if content overflows */
+            overflow-y: hidden; /* We will handle scrolling inside the grid */
+        }
+        #gallery-screen-container {
+            height: 100vh; /* Full viewport height */
+            width: 100vw;  /* Full viewport width */
+            background-color: var(--background);
+            color: var(--foreground);
+            display: flex;
+            flex-direction: column;
+        }
+
+        #gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 2px solid var(--border);
+            background-color: var(--muted);
+            flex-shrink: 0; /* Prevent header from shrinking */
+        }
+
+        #gallery-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        #gallery-close-button {
+            background: none;
+            border: 2px solid var(--border);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+        }
+
+        #gallery-close-button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px hsl(0 0% 0% / 1.00);
+        }
+
+        #gallery-close-button:active {
+            transform: scale(0.9);
+            box-shadow: 1px 1px 0px 0px hsl(0 0% 0% / 1.00);
+        }
+
+        #photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Responsive grid */
+            gap: 15px;
+            padding: 15px;
+            overflow-y: auto; /* Allow scrolling */
+            flex-grow: 1; /* Take up remaining space */
+            background-color: var(--muted); /* Slightly different background for grid area */
+        }
+
+        .photo-item {
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            background-color: var(--card);
+            color: var(--card-foreground);
+            aspect-ratio: 1 / 1; /* Square thumbnails */
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-item:hover {
+            transform: translate(-2px, -2px); /* Slight lift effect on hover */
+            box-shadow: 6px 6px 0px 0px hsl(0 0% 0% / 1.00);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the square area */
+        }
+
+        .photo-placeholder {
+            width: 80%;
+            height: 80%;
+            background-color: var(--secondary); /* Placeholder color */
+            border: 1px dashed var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-foreground);
+            font-size: 3rem;
+        }
+
+        /* For a single photo detail view (simplified) */
+        #photo-detail-view {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-out;
+        }
+
+        #photo-detail-view.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #detail-image {
+            max-width: 90%;
+            max-height: 80%;
+            border: 2px solid var(--border);
+            box-shadow: var(--shadow-xl);
+        }
+
+        #detail-close-button {
+            margin-top: 20px;
+            background: var(--background);
+            border: 2px solid var(--border);
+            color: var(--foreground);
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+        }
+
+        #detail-close-button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px hsl(0 0% 0% / 1.00);
+        }
+
+        #detail-close-button:active {
+            transform: scale(0.9);
+            box-shadow: 1px 1px 0px 0px hsl(0 0% 0% / 1.00);
+        }
+    </style>
+</head>
+<body>
+    <div id="gallery-screen-container">
+        <!-- Header with title and close button -->
+        <div id="gallery-header">
+            <h1 id="gallery-title">我的照片</h1>
+            <button id="gallery-close-button" title="关闭">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+
+        <!-- Scrollable grid of photos -->
+        <div id="photo-grid">
+            <!-- Each photo item -->
+            <!-- Using placeholder images from placehold.co -->
+            <div class="photo-item">
+                <img src="https://placehold.co/300x300/4A90E2/FFFFFF?text=Photo+1" alt="Photo 1">
+            </div>
+            <div class="photo-item">
+                <img src="https://placehold.co/300x300/50C878/FFFFFF?text=Photo+2" alt="Photo 2">
+            </div>
+            <div class="photo-item">
+                <img src="https://placehold.co/300x300/FFD700/000000?text=Photo+3" alt="Photo 3">
+            </div>
+            <div class="photo-item">
+                <img src="https://placehold.co/300x300/FF6347/FFFFFF?text=Photo+4" alt="Photo 4">
+            </div>
+            <div class="photo-item">
+                <img src="https://placehold.co/300x300/9370DB/FFFFFF?text=Photo+5" alt="Photo 5">
+            </div>
+            <div class="photo-item">
+                <img src="https://placehold.co/300x300/FF1493/FFFFFF?text=Photo+6" alt="Photo 6">
+            </div>
+            <div class="photo-item">
+                 <div class="photo-placeholder">
+                    <i data-lucide="image-off"></i>
+                 </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://placehold.co/300x300/00CED1/FFFFFF?text=Photo+8" alt="Photo 8">
+            </div>
+            <!-- More placeholder items to demonstrate grid -->
+            <div class="photo-item"><div class="photo-placeholder"><i data-lucide="image"></i></div></div>
+            <div class="photo-item"><div class="photo-placeholder"><i data-lucide="image"></i></div></div>
+            <div class="photo-item"><div class="photo-placeholder"><i data-lucide="image"></i></div></div>
+            <div class="photo-item"><div class="photo-placeholder"><i data-lucide="image"></i></div></div>
+
+        </div>
+    </div>
+
+    <!-- Simple Photo Detail View (Modal) -->
+    <div id="photo-detail-view">
+        <img id="detail-image" src="" alt="Detailed view">
+        <button id="detail-close-button">关闭</button>
+    </div>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <!-- Basic interaction simulation (for design preview only) -->
+    <script>
+        // Close gallery button
+        document.getElementById('gallery-close-button').addEventListener('click', function() {
+             alert('关闭按钮被点击。在实际应用中，这将关闭图片预览界面。');
+        });
+
+        // Photo grid item click to show detail
+        const photoItems = document.querySelectorAll('.photo-item');
+        const detailView = document.getElementById('photo-detail-view');
+        const detailImage = document.getElementById('detail-image');
+        const detailCloseButton = document.getElementById('detail-close-button');
+
+        photoItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const img = this.querySelector('img');
+                if (img) {
+                    detailImage.src = img.src;
+                    detailImage.alt = img.alt;
+                    detailView.classList.add('active');
+                }
+            });
+        });
+
+        // Close detail view
+        detailCloseButton.addEventListener('click', function() {
+            detailView.classList.remove('active');
+        });
+
+        // Close detail view by clicking on the backdrop
+        detailView.addEventListener('click', function(e) {
+            if (e.target === detailView) {
+                detailView.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
