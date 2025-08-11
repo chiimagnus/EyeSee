@@ -1,12 +1,72 @@
-//
-//  ContentView.swift
-//  EyeSee
-//
-//  Created by chii_magnus on 2025/8/10.
-//
-
 import SwiftUI
 import SwiftData
+
+@Observable
+class CameraViewModel {
+    // MARK: - State
+    var isCaptureButtonPressed = false
+    var isFilterButtonPressed = false
+    var isGalleryButtonPressed = false
+    
+    // MARK: - Actions
+    func capturePhoto() {
+        // 模拟拍照效果
+        print("Capturing photo...")
+        // 这里可以添加实际的拍照逻辑
+    }
+    
+    func switchFilter() {
+        // 切换滤镜
+        print("Switching filter...")
+        // 这里可以添加滤镜切换逻辑
+    }
+    
+    func openGallery() {
+        // 打开相册
+        print("Opening gallery...")
+        // 这里可以添加打开相册的逻辑
+    }
+    
+    // MARK: - Button Press Handling
+    func captureButtonPressed() {
+        withAnimation(.easeInOut(duration: 0.1)) {
+            isCaptureButtonPressed = true
+        }
+    }
+    
+    func captureButtonReleased() {
+        withAnimation(.easeInOut(duration: 0.1)) {
+            isCaptureButtonPressed = false
+        }
+        capturePhoto()
+    }
+    
+    func filterButtonPressed() {
+        withAnimation(.easeInOut(duration: 0.1)) {
+            isFilterButtonPressed = true
+        }
+    }
+    
+    func filterButtonReleased() {
+        withAnimation(.easeInOut(duration: 0.1)) {
+            isFilterButtonPressed = false
+        }
+        switchFilter()
+    }
+    
+    func galleryButtonPressed() {
+        withAnimation(.easeInOut(duration: 0.1)) {
+            isGalleryButtonPressed = true
+        }
+    }
+    
+    func galleryButtonReleased() {
+        withAnimation(.easeInOut(duration: 0.1)) {
+            isGalleryButtonPressed = false
+        }
+        openGallery()
+    }
+}
 
 // MARK: - Neo-Brutalism Color Extensions
 extension Color {
@@ -38,6 +98,8 @@ struct ContentView: View {
 }
 
 struct MainCameraView: View {
+    @State private var viewModel = CameraViewModel()
+    
     var body: some View {
         ZStack {
             // Background
@@ -48,7 +110,7 @@ struct MainCameraView: View {
                 CameraPreviewView()
                 
                 // Bottom Control Bar
-                BottomControlBar()
+                BottomControlBar(viewModel: viewModel)
             }
         }
         .ignoresSafeArea()
@@ -84,22 +146,34 @@ struct CameraPreviewView: View {
 }
 
 struct BottomControlBar: View {
+    @Bindable var viewModel: CameraViewModel
+    
     var body: some View {
         HStack(spacing: 40) {
             // Gallery Button
-            ControlButton(icon: "photo", action: {
-                // Gallery action
-            })
+            ControlButton(
+                icon: "photo",
+                isPressed: viewModel.isGalleryButtonPressed,
+                onPressed: viewModel.galleryButtonPressed,
+                onReleased: viewModel.galleryButtonReleased
+            )
             
             // Capture Button
-            ControlButton(icon: "circle.fill", isCaptureButton: true, action: {
-                // Capture action
-            })
+            ControlButton(
+                icon: "circle.fill",
+                isCaptureButton: true,
+                isPressed: viewModel.isCaptureButtonPressed,
+                onPressed: viewModel.captureButtonPressed,
+                onReleased: viewModel.captureButtonReleased
+            )
             
             // Filter Button
-            ControlButton(icon: "camera.filters", action: {
-                // Filter action
-            })
+            ControlButton(
+                icon: "camera.filters",
+                isPressed: viewModel.isFilterButtonPressed,
+                onPressed: viewModel.filterButtonPressed,
+                onReleased: viewModel.filterButtonReleased
+            )
         }
         .padding(.vertical, 20)
         .padding(.horizontal, 30)
@@ -117,12 +191,12 @@ struct BottomControlBar: View {
 struct ControlButton: View {
     var icon: String
     var isCaptureButton: Bool = false
-    var action: () -> Void
-    
-    @State private var isPressed = false
+    var isPressed: Bool = false
+    var onPressed: () -> Void = {}
+    var onReleased: () -> Void = {}
     
     var body: some View {
-        Button(action: action) {
+        Button(action: {}) {
             Image(systemName: icon)
                 .font(.system(size: 32))
                 .foregroundColor(isCaptureButton ? .brutalPrimaryForeground : .brutalForeground)
@@ -140,14 +214,10 @@ struct ControlButton: View {
         .simultaneousGesture(
             DragGesture(minimumDistance: 0)
                 .onChanged { _ in
-                    withAnimation(.easeInOut(duration: 0.1)) {
-                        isPressed = true
-                    }
+                    onPressed()
                 }
                 .onEnded { _ in
-                    withAnimation(.easeInOut(duration: 0.1)) {
-                        isPressed = false
-                    }
+                    onReleased()
                 }
         )
     }
