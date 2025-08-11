@@ -41,13 +41,13 @@ For running and testing:
 
 ## Current Development Status
 
-Refer to `todo.md` for the current development checklist. Key areas being worked on:
+The project has a working camera view with basic controls and photo capture functionality. The next steps are to implement the filter framework and animal vision simulations.
+
+Key areas being worked on:
 - UI component refinement based on Neo-Brutalism design
 - Camera functionality implementation
 - Filter framework development
 - Animal vision simulation filters
-
-The project has a working camera view with basic controls and photo capture functionality. The next steps are to implement the filter framework and animal vision simulations.
 
 ## Design Guidelines
 
