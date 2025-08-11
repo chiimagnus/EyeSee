@@ -6,5 +6,9 @@
 	<array>
 		<string>remote-notification</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>需要访问相机以进行拍照</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>允许保存照片到相册</string>
 </dict>
 </plist>

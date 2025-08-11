@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct ContentView: View {
     @State private var viewModel = CameraViewModel()
@@ -13,7 +14,36 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 0) {
             // 相机预览区域
-            CameraPreviewView(currentFilter: viewModel.currentFilter)
+            ZStack {
+                CameraPreviewLayerView(session: viewModel.cameraService.session)
+                    .overlay(alignment: .topLeading) {
+                        // 权限或错误提示（MVP 简单文字）
+                        if viewModel.authorizationStatus != .authorized {
+                            Text("需要相机权限")
+                                .padding(8)
+                                .background(.ultraThinMaterial)
+                                .cornerRadius(8)
+                                .padding()
+                        }
+                        if let message = viewModel.errorMessage {
+                            Text(message)
+                                .padding(8)
+                                .background(.ultraThinMaterial)
+                                .cornerRadius(8)
+                                .padding()
+                        }
+                    }
+
+                // 拍到的图片短暂预览
+                if viewModel.showCapturedPreview, let image = viewModel.capturedImage {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(Color.black.opacity(0.6))
+                        .transition(.opacity.combined(with: .scale))
+                }
+            }
             
             // 底部控制栏
             BottomControlBar(
@@ -30,6 +60,8 @@ struct ContentView: View {
             )
         }
         .ignoresSafeArea(.all)
+        .onAppear { viewModel.onAppear() }
+        .onDisappear { viewModel.onDisappear() }
     }
 }
 
@@ -37,30 +69,23 @@ struct ContentView: View {
     ContentView()
 }
 
-// MARK: - 相机预览视图
-struct CameraPreviewView: View {
-    let currentFilter: String
+// MARK: - AVCaptureVideoPreview SwiftUI 包装
+struct CameraPreviewLayerView: UIViewRepresentable {
+    let session: AVCaptureSession
     
-    var body: some View {
-        ZStack {
-            // 占位符背景色
-            Color.black
-            
-            // 居中的预览文本
-            VStack {
-                Text("相机预览")
-                    .foregroundColor(.white)
-                    .font(.title2)
-                
-                Text("当前滤镜: \(currentFilter)")
-                    .foregroundColor(.white)
-                    .font(.caption)
-                    .padding(.top, 8)
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .border(.black, width: 2) // 黑色实线边框
+    func makeUIView(context: Context) -> PreviewView {
+        let view = PreviewView()
+        view.videoPreviewLayer.session = session
+        view.videoPreviewLayer.videoGravity = .resizeAspectFill
+        return view
     }
+    
+    func updateUIView(_ uiView: PreviewView, context: Context) {}
+}
+
+final class PreviewView: UIView {
+    override class var layerClass: AnyClass { AVCaptureVideoPreviewLayer.self }
+    var videoPreviewLayer: AVCaptureVideoPreviewLayer { layer as! AVCaptureVideoPreviewLayer }
 }
 
 // MARK: - 底部控制栏
