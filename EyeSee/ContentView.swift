@@ -20,6 +20,17 @@ extension Color {
     static let brutalBorder = Color(red: 0.0, green: 0.0, blue: 0.0)
 }
 
+// MARK: - Neo-Brutalism Shadow Extensions
+extension View {
+    func brutalShadow() -> some View {
+        self.shadow(color: .black, radius: 0, x: 4, y: 4)
+    }
+    
+    func brutalShadowPressed() -> some View {
+        self.shadow(color: .black, radius: 0, x: 2, y: 2)
+    }
+}
+
 struct ContentView: View {
     var body: some View {
         MainCameraView()
@@ -58,7 +69,13 @@ struct CameraPreviewView: View {
             }
             .overlay(
                 RoundedRectangle(cornerRadius: 0)
-                    .stroke(Color.brutalBorder, lineWidth: 2)
+                    .strokeBorder(
+                        Color.brutalBorder,
+                        style: StrokeStyle(
+                            lineWidth: 2,
+                            dash: [5, 5]
+                        )
+                    )
                     .shadow(color: .black, radius: 0, x: 4, y: 4)
             )
             .padding(10)
@@ -93,6 +110,7 @@ struct BottomControlBar: View {
                 .foregroundColor(.brutalBorder),
             alignment: .top
         )
+        .shadow(color: .black, radius: 0, x: 4, y: 4)
     }
 }
 
@@ -114,8 +132,8 @@ struct ControlButton: View {
                     RoundedRectangle(cornerRadius: isCaptureButton ? 40 : 35)
                         .stroke(Color.brutalBorder, lineWidth: 2)
                 )
-                .shadow(color: .black, radius: 0, x: isPressed ? 2 : 4, y: isPressed ? 2 : 4)
-                .offset(x: isPressed ? 2 : 0, y: isPressed ? 2 : 0)
+                .modifier(BrutalShadowModifier(isPressed: isPressed))
+                .scaleEffect(isPressed ? 0.9 : 1.0)
         }
         .buttonStyle(PlainButtonStyle())
         .simultaneousGesture(
@@ -131,6 +149,20 @@ struct ControlButton: View {
                     }
                 }
         )
+    }
+}
+
+struct BrutalShadowModifier: ViewModifier {
+    let isPressed: Bool
+    
+    func body(content: Content) -> some View {
+        if isPressed {
+            content
+                .shadow(color: .black, radius: 0, x: 1, y: 1)
+        } else {
+            content
+                .brutalShadow()
+        }
     }
 }
 
