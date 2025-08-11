@@ -33,6 +33,16 @@ struct ContentView: View {
                                 .padding()
                         }
                     }
+                    .overlay(alignment: .topTrailing) {
+                        if viewModel.showSaveSuccessToast {
+                            Text("已保存到相册")
+                                .padding(8)
+                                .background(.ultraThinMaterial)
+                                .cornerRadius(8)
+                                .padding()
+                                .transition(.move(edge: .top).combined(with: .opacity))
+                        }
+                    }
 
                 // 拍到的图片短暂预览
                 if viewModel.showCapturedPreview, let image = viewModel.capturedImage {

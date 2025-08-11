@@ -15,6 +15,7 @@ import UIKit
 class CameraViewModel {
     // MARK: - Services
     let cameraService = CameraService()
+    let photoLibraryService = PhotoLibraryService()
 
     // MARK: - State for UI
     var isCapturing = false
@@ -23,6 +24,7 @@ class CameraViewModel {
     var isSessionRunning: Bool = false
     var capturedImage: UIImage?
     var showCapturedPreview: Bool = false
+    var showSaveSuccessToast: Bool = false
     var errorMessage: String?
 
     // MARK: - Internal interaction states
@@ -59,6 +61,7 @@ class CameraViewModel {
                 self.capturedImage = image
                 self.isCapturing = false
                 self.presentCapturedPreviewTemporarily()
+                self.saveToPhotoLibrary(image)
             }
             .store(in: &cancellables)
 
@@ -118,5 +121,22 @@ class CameraViewModel {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { [weak self] in
             self?.showCapturedPreview = false
         }
+    }
+
+    private func saveToPhotoLibrary(_ image: UIImage) {
+        photoLibraryService
+            .saveImageToLibrary(image)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                if case let .failure(error) = completion {
+                    self?.errorMessage = error.localizedDescription
+                }
+            } receiveValue: { [weak self] in
+                self?.showSaveSuccessToast = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { [weak self] in
+                    self?.showSaveSuccessToast = false
+                }
+            }
+            .store(in: &cancellables)
     }
 }
