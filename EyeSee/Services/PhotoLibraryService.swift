@@ -1,10 +1,3 @@
-//
-//  PhotoLibraryService.swift
-//  EyeSee
-//
-//  Created by chiimagnus on 2025/8/11.
-//
-
 import Foundation
 import Photos
 import Combine

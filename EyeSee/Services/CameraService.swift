@@ -1,10 +1,3 @@
-//
-//  CameraService.swift
-//  EyeSee
-//
-//  Created by Assistant on 2025/8/11.
-//
-
 import Foundation
 import AVFoundation
 import Combine

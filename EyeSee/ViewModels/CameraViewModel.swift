@@ -1,10 +1,3 @@
-//
-//  CameraViewModel.swift
-//  EyeSee
-//
-//  Created by chii_magnus on 2025/8/11.
-//
-
 import Foundation
 import SwiftUI
 import Combine

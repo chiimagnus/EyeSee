@@ -1,10 +1,3 @@
-//
-//  EyeSeeApp.swift
-//  EyeSee
-//
-//  Created by chii_magnus on 2025/8/10.
-//
-
 import SwiftUI
 import SwiftData
 

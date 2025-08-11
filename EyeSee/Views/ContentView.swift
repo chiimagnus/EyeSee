@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  EyeSee
-//
-//  Created by chii_magnus on 2025/8/11.
-//
-
 import SwiftUI
 import AVFoundation
 
