@@ -21,9 +21,12 @@ The app is currently in the MVP development phase focusing on:
 ### Key Files & Directories
 
 - `EyeSee/EyeSeeApp.swift` - Main app entry point with SwiftData container setup
-- `EyeSee/ContentView.swift` - Main view with navigation structure
+- `EyeSee/ContentView.swift` - Main view with navigation structure (Note: This file was removed in recent refactoring and needs to be recreated)
 - `EyeSee/Item.swift` - Sample SwiftData model
 - `EyeSee/Assets.xcassets` - App icons and image assets
+- `EyeSee/Views/` - Directory for SwiftUI views (currently being restructured)
+- `EyeSee/ViewModels/` - Directory for ViewModels (currently being restructured)
+- `EyeSee/Models/` - Directory for data models (currently being restructured)
 - `.superdesign/design_iterations/` - UI design files (HTML/CSS mockups)
 - `.cursor/rules/` - Cursor AI coding rules including design guidelines
 
@@ -36,6 +39,13 @@ For running and testing:
 2. Select the appropriate simulator or device
 3. Build and run using Xcode's standard workflow (Cmd+R)
 
+For testing:
+1. Unit tests are located in `EyeSeeTests/`
+2. UI tests are located in `EyeSeeUITests/`
+3. Run tests using Xcode's standard testing workflow (Cmd+U)
+
+Note: The project currently has a compilation issue as the main view file (`ContentView.swift`) that is referenced in `EyeSeeApp.swift` has been deleted. This needs to be addressed by creating a new main view file.
+
 ## Current Development Status
 
 Refer to `todo.md` for the current development checklist. Key areas being worked on:
@@ -43,6 +53,8 @@ Refer to `todo.md` for the current development checklist. Key areas being worked
 - Camera functionality implementation
 - Filter framework development
 - Animal vision simulation filters
+
+The project is currently in a refactored state where the main view file has been removed and new directory structures for Views, ViewModels, and Models have been created but are empty. The next step is to implement the main view and populate the new directory structure.
 
 ## Design Guidelines
 
@@ -54,14 +66,45 @@ All UI implementations should follow these design principles.
 
 ## Code Structure
 
-The codebase follows standard SwiftUI patterns:
+The codebase follows standard SwiftUI patterns with MVVM architecture:
 - MVVM architecture (Model-View-View-Model)
 - SwiftData for data persistence
 - SwiftUI for UI components
 - Metal for high-performance image processing filters (to be implemented)
 
+### Architecture Details
+
+Following the MVVM-SwiftUI best practices defined in `.cursor/rules/mvvm-swiftui-best-practices.mdc`:
+
+1. **Models** (`EyeSee/Models/`):
+   - Pure data structures, no business logic
+   - Use `@Model` macro for SwiftData
+   - No direct references to SwiftUI or Combine
+
+2. **ViewModels** (`EyeSee/ViewModels/`):
+   - Handle business logic and state management
+   - Use `@Observable` macro (iOS17+/macOS14+)
+   - Use `@Published` properties for state management
+   - Use Combine for reactive data flow
+   - No direct references to SwiftUI Views
+
+3. **Views** (`EyeSee/Views/`):
+   - Pure UI presentation, no business logic
+   - Use SwiftUI for all UI components
+   - Use `@State` and `@Bindable` for state management
+   - Componentized and reusable
+
+### Current Structure Issues
+
+The project is currently in an incomplete state after refactoring:
+- The main view file `ContentView.swift` has been deleted but is still referenced in `EyeSeeApp.swift`
+- New directories for Views, ViewModels, and Models have been created but are empty
+- This creates a compilation error that needs to be resolved by implementing the main view
+
 When adding new features:
-1. Create new SwiftUI views in the `EyeSee` directory
-2. Follow the existing patterns for state management and data flow
-3. Use SwiftData models for persistent data
-4. Implement image processing filters using Metal for performance
+1. Create new SwiftUI views in the `EyeSee/Views/` directory following the feature-based structure
+2. Create corresponding ViewModels in `EyeSee/ViewModels/`
+3. Create data models in `EyeSee/Models/` if needed
+4. Follow the MVVM patterns for state management and data flow
+5. Use SwiftData models for persistent data
+6. Implement image processing filters using Metal for performance when needed
