@@ -128,8 +128,8 @@ final class CameraService: NSObject, ObservableObject {
                     self.videoDataOutputConnection = self.videoDataOutput.connection(with: .video)
                     // Set video orientation if possible
                     if let connection = self.videoDataOutputConnection,
-                       connection.isVideoOrientationSupported {
-                        connection.videoOrientation = .portrait
+                       connection.isVideoRotationAngleSupported(0) {
+                        connection.videoRotationAngle = 0
                     }
                 } else {
                     DispatchQueue.main.async { self.lastError = .configurationFailed }

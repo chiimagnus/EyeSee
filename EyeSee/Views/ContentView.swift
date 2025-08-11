@@ -147,7 +147,9 @@ final class PreviewView: UIView {
         if keyPath == "readyForDisplay", object as? AVCaptureVideoPreviewLayer === self.videoPreviewLayer {
             // 当预览层准备好显示时，设置连接方向
             if let connection = videoPreviewLayer.connection, connection.isEnabled {
-                connection.videoOrientation = .portrait // 默认竖屏
+                if connection.isVideoRotationAngleSupported(0) {
+                    connection.videoRotationAngle = 0 // 竖屏方向
+                }
             }
         } else if keyPath == "bounds", object as? PreviewView === self {
              // 当 PreviewView 大小改变时，同步滤镜覆盖层
