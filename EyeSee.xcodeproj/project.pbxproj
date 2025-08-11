@@ -6,27 +6,8 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXContainerItemProxy section */
-		D88C54F12E488425002E31BD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D88C54D72E488424002E31BD /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D88C54DE2E488424002E31BD;
-			remoteInfo = EyeSee;
-		};
-		D88C54FB2E488425002E31BD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D88C54D72E488424002E31BD /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D88C54DE2E488424002E31BD;
-			remoteInfo = EyeSee;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		D88C54DF2E488424002E31BD /* EyeSee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EyeSee.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D88C54F02E488425002E31BD /* EyeSeeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EyeSeeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D88C54FA2E488425002E31BD /* EyeSeeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EyeSeeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -48,34 +29,10 @@
 			path = EyeSee;
 			sourceTree = "<group>";
 		};
-		D88C54F32E488425002E31BD /* EyeSeeTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = EyeSeeTests;
-			sourceTree = "<group>";
-		};
-		D88C54FD2E488425002E31BD /* EyeSeeUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = EyeSeeUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		D88C54DC2E488424002E31BD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D88C54ED2E488425002E31BD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D88C54F72E488425002E31BD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -89,8 +46,6 @@
 			isa = PBXGroup;
 			children = (
 				D88C54E12E488424002E31BD /* EyeSee */,
-				D88C54F32E488425002E31BD /* EyeSeeTests */,
-				D88C54FD2E488425002E31BD /* EyeSeeUITests */,
 				D88C54E02E488424002E31BD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -99,8 +54,6 @@
 			isa = PBXGroup;
 			children = (
 				D88C54DF2E488424002E31BD /* EyeSee.app */,
-				D88C54F02E488425002E31BD /* EyeSeeTests.xctest */,
-				D88C54FA2E488425002E31BD /* EyeSeeUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -130,52 +83,6 @@
 			productReference = D88C54DF2E488424002E31BD /* EyeSee.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D88C54EF2E488425002E31BD /* EyeSeeTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D88C55082E488425002E31BD /* Build configuration list for PBXNativeTarget "EyeSeeTests" */;
-			buildPhases = (
-				D88C54EC2E488425002E31BD /* Sources */,
-				D88C54ED2E488425002E31BD /* Frameworks */,
-				D88C54EE2E488425002E31BD /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D88C54F22E488425002E31BD /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				D88C54F32E488425002E31BD /* EyeSeeTests */,
-			);
-			name = EyeSeeTests;
-			packageProductDependencies = (
-			);
-			productName = EyeSeeTests;
-			productReference = D88C54F02E488425002E31BD /* EyeSeeTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		D88C54F92E488425002E31BD /* EyeSeeUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D88C550B2E488425002E31BD /* Build configuration list for PBXNativeTarget "EyeSeeUITests" */;
-			buildPhases = (
-				D88C54F62E488425002E31BD /* Sources */,
-				D88C54F72E488425002E31BD /* Frameworks */,
-				D88C54F82E488425002E31BD /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D88C54FC2E488425002E31BD /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				D88C54FD2E488425002E31BD /* EyeSeeUITests */,
-			);
-			name = EyeSeeUITests;
-			packageProductDependencies = (
-			);
-			productName = EyeSeeUITests;
-			productReference = D88C54FA2E488425002E31BD /* EyeSeeUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -188,14 +95,6 @@
 				TargetAttributes = {
 					D88C54DE2E488424002E31BD = {
 						CreatedOnToolsVersion = 16.3;
-					};
-					D88C54EF2E488425002E31BD = {
-						CreatedOnToolsVersion = 16.3;
-						TestTargetID = D88C54DE2E488424002E31BD;
-					};
-					D88C54F92E488425002E31BD = {
-						CreatedOnToolsVersion = 16.3;
-						TestTargetID = D88C54DE2E488424002E31BD;
 					};
 				};
 			};
@@ -214,28 +113,12 @@
 			projectRoot = "";
 			targets = (
 				D88C54DE2E488424002E31BD /* EyeSee */,
-				D88C54EF2E488425002E31BD /* EyeSeeTests */,
-				D88C54F92E488425002E31BD /* EyeSeeUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		D88C54DD2E488424002E31BD /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D88C54EE2E488425002E31BD /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D88C54F82E488425002E31BD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -252,34 +135,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D88C54EC2E488425002E31BD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D88C54F62E488425002E31BD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		D88C54F22E488425002E31BD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D88C54DE2E488424002E31BD /* EyeSee */;
-			targetProxy = D88C54F12E488425002E31BD /* PBXContainerItemProxy */;
-		};
-		D88C54FC2E488425002E31BD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D88C54DE2E488424002E31BD /* EyeSee */;
-			targetProxy = D88C54FB2E488425002E31BD /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		D88C55042E488425002E31BD /* Debug */ = {
@@ -463,78 +319,6 @@
 			};
 			name = Release;
 		};
-		D88C55092E488425002E31BD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = RDQHYSDFFG;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chiimagnus.EyeSeeTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EyeSee.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/EyeSee";
-			};
-			name = Debug;
-		};
-		D88C550A2E488425002E31BD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = RDQHYSDFFG;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chiimagnus.EyeSeeTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EyeSee.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/EyeSee";
-			};
-			name = Release;
-		};
-		D88C550C2E488425002E31BD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = RDQHYSDFFG;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chiimagnus.EyeSeeUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = EyeSee;
-			};
-			name = Debug;
-		};
-		D88C550D2E488425002E31BD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = RDQHYSDFFG;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chiimagnus.EyeSeeUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = EyeSee;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -552,24 +336,6 @@
 			buildConfigurations = (
 				D88C55042E488425002E31BD /* Debug */,
 				D88C55052E488425002E31BD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D88C55082E488425002E31BD /* Build configuration list for PBXNativeTarget "EyeSeeTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D88C55092E488425002E31BD /* Debug */,
-				D88C550A2E488425002E31BD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D88C550B2E488425002E31BD /* Build configuration list for PBXNativeTarget "EyeSeeUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D88C550C2E488425002E31BD /* Debug */,
-				D88C550D2E488425002E31BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
