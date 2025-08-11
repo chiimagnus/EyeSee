@@ -82,6 +82,7 @@ struct BottomControlBar: View {
             ControlButton(iconName: "camera.filters", action: filterAction)
         }
         .padding(.vertical, 20)
+        .frame(maxWidth: .infinity)
         .background(Color(.systemGray5)) // 浅灰色背景
         .border(.black, width: 2) // 黑色实线边框
     }
@@ -94,20 +95,23 @@ struct ControlButton: View {
     
     var body: some View {
         Button(action: action) {
-            Image(systemName: iconName)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 32, height: 32)
-                .foregroundColor(.primary)
+            ZStack {
+                Circle()
+                    .fill(Color.white)
+                    .frame(width: 70, height: 70)
+                    .overlay(
+                        Circle()
+                            .stroke(.black, lineWidth: 2)
+                    )
+                    .shadow(color: .black, radius: 0, x: 4, y: 4) // Neo-Brutalism 风格阴影
+                
+                Image(systemName: iconName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 32, height: 32)
+                    .foregroundColor(.primary)
+            }
         }
-        .frame(width: 70, height: 70)
-        .background(Color.white)
-        .clipShape(Circle())
-        .overlay(
-            Circle()
-                .stroke(.black, lineWidth: 2)
-        )
-        .shadow(color: .black, radius: 0, x: 4, y: 4) // Neo-Brutalism 风格阴影
         .buttonStyle(ControlButtonStyle())
     }
 }
@@ -121,7 +125,7 @@ struct CaptureButton: View {
         Button(action: action) {
             ZStack {
                 Circle()
-                    .fill(Color.orange) // 橙色填充
+                    .fill(Color.red) // 红色填充
                 
                 if isCapturing {
                     Circle()
@@ -147,6 +151,7 @@ struct ControlButtonStyle: ButtonStyle {
         configuration.label
             .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
             .shadow(color: .black, radius: 0, x: configuration.isPressed ? 2 : 4, y: configuration.isPressed ? 2 : 4)
+            .animation(.easeOut(duration: 0.1), value: configuration.isPressed)
     }
 }
 
