@@ -128,8 +128,9 @@ struct ControlButton: View {
                 .foregroundColor(isCaptureButton ? .brutalPrimaryForeground : .brutalForeground)
                 .frame(width: isCaptureButton ? 80 : 70, height: isCaptureButton ? 80 : 70)
                 .background(isCaptureButton ? Color.brutalPrimary : Color.brutalBackground)
+                .clipShape(Circle())
                 .overlay(
-                    RoundedRectangle(cornerRadius: isCaptureButton ? 40 : 35)
+                    Circle()
                         .stroke(Color.brutalBorder, lineWidth: 2)
                 )
                 .modifier(BrutalShadowModifier(isPressed: isPressed))
