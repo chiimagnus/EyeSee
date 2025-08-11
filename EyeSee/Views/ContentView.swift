@@ -8,13 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var viewModel = CameraViewModel()
+    
     var body: some View {
         VStack(spacing: 0) {
             // 相机预览区域
-            CameraPreviewView()
+            CameraPreviewView(currentFilter: viewModel.currentFilter)
             
             // 底部控制栏
-            BottomControlBar()
+            BottomControlBar(
+                isCapturing: viewModel.isCapturing,
+                galleryAction: {
+                    viewModel.openGallery()
+                },
+                captureAction: {
+                    viewModel.capturePhoto()
+                },
+                filterAction: {
+                    viewModel.switchFilter()
+                }
+            )
         }
         .ignoresSafeArea(.all)
     }
@@ -26,15 +39,24 @@ struct ContentView: View {
 
 // MARK: - 相机预览视图
 struct CameraPreviewView: View {
+    let currentFilter: String
+    
     var body: some View {
         ZStack {
             // 占位符背景色
             Color.black
             
             // 居中的预览文本
-            Text("相机预览")
-                .foregroundColor(.white)
-                .font(.title2)
+            VStack {
+                Text("相机预览")
+                    .foregroundColor(.white)
+                    .font(.title2)
+                
+                Text("当前滤镜: \(currentFilter)")
+                    .foregroundColor(.white)
+                    .font(.caption)
+                    .padding(.top, 8)
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .border(.black, width: 2) // 黑色实线边框
@@ -43,22 +65,21 @@ struct CameraPreviewView: View {
 
 // MARK: - 底部控制栏
 struct BottomControlBar: View {
+    let isCapturing: Bool
+    let galleryAction: () -> Void
+    let captureAction: () -> Void
+    let filterAction: () -> Void
+    
     var body: some View {
         HStack(spacing: 50) {
             // 图库按钮
-            ControlButton(iconName: "photo", action: {
-                // 图库按钮点击事件
-            })
+            ControlButton(iconName: "photo", action: galleryAction)
             
             // 拍照按钮
-            CaptureButton(action: {
-                // 拍照按钮点击事件
-            })
+            CaptureButton(isCapturing: isCapturing, action: captureAction)
             
             // 滤镜按钮
-            ControlButton(iconName: "camera.filters", action: {
-                // 滤镜按钮点击事件
-            })
+            ControlButton(iconName: "camera.filters", action: filterAction)
         }
         .padding(.vertical, 20)
         .background(Color(.systemGray5)) // 浅灰色背景
@@ -93,20 +114,30 @@ struct ControlButton: View {
 
 // MARK: - 拍照按钮
 struct CaptureButton: View {
+    let isCapturing: Bool
     let action: () -> Void
     
     var body: some View {
         Button(action: action) {
-            Circle()
-                .fill(Color.orange) // 橙色填充
-                .frame(width: 80, height: 80)
-                .overlay(
+            ZStack {
+                Circle()
+                    .fill(Color.orange) // 橙色填充
+                
+                if isCapturing {
                     Circle()
-                        .stroke(.black, lineWidth: 2)
-                )
+                        .stroke(Color.white, lineWidth: 4)
+                        .scaleEffect(1.2)
+                        .opacity(0.7)
+                }
+            }
+            .frame(width: 80, height: 80)
+            .overlay(
+                Circle()
+                    .stroke(.black, lineWidth: 2)
+            )
         }
         .shadow(color: .black, radius: 0, x: 4, y: 4) // Neo-Brutalism 风格阴影
-        .buttonStyle(CaptureButtonStyle())
+        .buttonStyle(CaptureButtonStyle(isCapturing: isCapturing))
     }
 }
 
@@ -121,9 +152,11 @@ struct ControlButtonStyle: ButtonStyle {
 
 // MARK: - 拍照按钮样式
 struct CaptureButtonStyle: ButtonStyle {
+    let isCapturing: Bool
+    
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
-            .shadow(color: .black, radius: 0, x: configuration.isPressed ? 2 : 4, y: configuration.isPressed ? 2 : 4)
+            .scaleEffect(configuration.isPressed || isCapturing ? 0.9 : 1.0)
+            .shadow(color: .black, radius: 0, x: configuration.isPressed || isCapturing ? 2 : 4, y: configuration.isPressed || isCapturing ? 2 : 4)
     }
 }
