@@ -4,18 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-EyeSee is an iOS application built with Swift/SwiftUI that allows users to experience the world through the eyes of different animals by applying visual filters based on scientific research about animal vision.
+EyeSee is an iOS application built with Swift/SwiftUI that provides a camera experience with a Neo-Brutalist design language. The app has removed the animal vision filter functionality and now focuses on core camera features.
 
 The app is currently in the MVP development phase focusing on:
 1. Core UI components with a Neo-Brutalism design language
 2. Basic camera functionality
-3. Filter framework implementation
-4. Animal vision simulation filters
+3. Photo capture and saving to the photo library
 
 ## Architecture & Structure
 
 - **Language**: Swift 5.9+
-- **Frameworks**: SwiftUI, SwiftData, Metal (for high-performance filters), AVFoundation, Photos
+- **Frameworks**: SwiftUI, SwiftData, AVFoundation, Photos
 - **Platform**: iOS 17+
 
 ### Key Files & Directories
@@ -41,13 +40,12 @@ For running and testing:
 
 ## Current Development Status
 
-The project has a working camera view with basic controls and photo capture functionality. The next steps are to implement the filter framework and animal vision simulations.
+The project has a working camera view with basic controls and photo capture functionality. The animal vision filter feature has been completely removed. The focus is now on refining the core camera experience and UI components.
 
 Key areas being worked on:
 - UI component refinement based on Neo-Brutalism design
 - Camera functionality implementation
-- Filter framework development
-- Animal vision simulation filters
+- Photo capture and saving improvements
 
 ## Design Guidelines
 
@@ -87,17 +85,14 @@ Following the MVVM-SwiftUI best practices defined in `.cursor/rules/mvvm-swiftui
 
 ## Camera Architecture
 
-The camera system uses a sophisticated real-time filtering architecture:
+The camera system uses a real-time preview architecture:
 
 1. **CameraService** - Manages AVCaptureSession and provides video frame data via `PreviewViewDelegate`
-2. **CameraViewModel** - Implements `PreviewViewDelegate` to receive real-time video frames and coordinates filter application
-3. **PreviewView** - Custom UIView that displays camera preview and renders filtered overlays using CALayer
-4. **AnimalVisionFilterService** - Applies animal vision filters using CoreImage color matrices
+2. **CameraViewModel** - Implements `PreviewViewDelegate` to receive real-time video frames
+3. **PreviewView** - Custom UIView that displays camera preview
 
 Key data flow:
 - CameraService captures video frames and passes them to ViewModel via delegate
-- ViewModel applies filters using AnimalVisionFilterService
-- Filtered images are rendered as overlays on the preview layer
 - All processing happens on background threads with UI updates on main thread
 
 When adding new features:
@@ -107,4 +102,3 @@ When adding new features:
 4. Create services in `EyeSee/Services/` for platform interactions
 5. Follow the MVVM patterns for state management and data flow
 6. Use SwiftData models for persistent data
-7. Implement image processing filters using Metal for performance when needed
