@@ -2,7 +2,6 @@ import Foundation
 import AVFoundation
 import Combine
 import UIKit
-import CoreImage
 
 final class CameraService: NSObject, ObservableObject {
     enum CameraServiceError: Error, LocalizedError {
@@ -28,7 +27,7 @@ final class CameraService: NSObject, ObservableObject {
     
     let photoSubject = PassthroughSubject<UIImage, Never>()
     
-    // MARK: - Video Data Output for real-time filtering
+    // MARK: - Video Data Output
     private let videoDataOutput = AVCaptureVideoDataOutput()
     private var videoDataOutputConnection: AVCaptureConnection?
     
@@ -120,7 +119,7 @@ final class CameraService: NSObject, ObservableObject {
                 }
             }
             
-            // Video Data Output for preview filtering
+            // Video Data Output
             if !self.session.outputs.contains(self.videoDataOutput) {
                 if self.session.canAddOutput(self.videoDataOutput) {
                     self.session.addOutput(self.videoDataOutput)
@@ -167,8 +166,8 @@ final class CameraService: NSObject, ObservableObject {
         photoOutput.capturePhoto(with: settings, delegate: self)
     }
     
-    // MARK: - Preview Filtering Integration
-    /// 设置预览视图代理，用于接收实时视频帧以应用滤镜
+    // MARK: - Preview Integration
+    /// 设置预览视图代理，用于接收实时视频帧
     /// - Parameter delegate: 遵循 PreviewViewDelegate 协议的对象
     func setPreviewViewDelegate(_ delegate: PreviewViewDelegate?) {
         previewViewDelegate = delegate
@@ -205,7 +204,7 @@ extension CameraService: AVCaptureVideoDataOutputSampleBufferDelegate {
             return
         }
         
-        // 通知代理（通常是 ViewModel）有新的帧到来，可以应用滤镜
+        // 通知代理（通常是 ViewModel）有新的帧到来
         DispatchQueue.main.async {
             self.previewViewDelegate?.didReceiveNewVideoFrame(pixelBuffer)
         }

@@ -1,6 +1,5 @@
 import SwiftUI
 import AVFoundation
-import CoreImage
 
 struct ContentView: View {
     @State private var viewModel = CameraViewModel()
@@ -38,14 +37,7 @@ struct ContentView: View {
                         }
                     }
                     .overlay(alignment: .bottomLeading) {
-                        // 显示当前滤镜名称
-                        if viewModel.currentFilter != .none {
-                            Text(viewModel.currentFilter.rawValue)
-                                .padding(8)
-                                .background(.ultraThinMaterial)
-                                .cornerRadius(8)
-                                .padding()
-                        }
+                        // 移除了滤镜名称显示
                     }
 
                 // 拍到的图片短暂预览
@@ -68,8 +60,9 @@ struct ContentView: View {
                 captureAction: {
                     viewModel.capturePhoto()
                 },
+                // 移除了滤镜动作
                 filterAction: {
-                    viewModel.switchFilter()
+                    // 移除了滤镜切换功能
                 }
             )
         }
@@ -91,23 +84,14 @@ struct CameraPreviewLayerView: UIViewRepresentable {
         // 将 PreviewView 的引用设置给 ViewModel
         viewModel.setCurrentPreviewView(view)
         
-        // 将 ViewModel 的方法作为闭包传递给 PreviewView
-        view.filterImageProvider = viewModel.filteredPreviewImage(from:)
-        view.filterRenderer = viewModel.renderFilteredImage(_:to:)
-        view.filterRemover = viewModel.removeFilterOverlay
+        // 移除了滤镜相关闭包传递
         
         return view
     }
     
     func updateUIView(_ uiView: PreviewView, context: Context) {
         // 当 UIView 更新时，例如父视图大小改变，确保滤镜层也更新
-        // 不再需要在这里调用 syncFilterOverlayWithCurrentFrame，
-        // 因为滤镜更新由 CameraService 驱动或 ViewModel 的 switchFilter 主动触发。
-        // 如果需要强制刷新（例如在某些特定的 UI 变化后），可以在这里调用。
-        // 但通常情况下，依赖数据流是更好的做法。
-        // DispatchQueue.main.async {
-        //     uiView.syncFilterOverlayWithCurrentFrame()
-        // }
+        // 移除了滤镜相关的注释
     }
     
     // 在销毁时，通知 ViewModel 清理引用
@@ -120,10 +104,7 @@ final class PreviewView: UIView {
     override class var layerClass: AnyClass { AVCaptureVideoPreviewLayer.self }
     var videoPreviewLayer: AVCaptureVideoPreviewLayer { layer as! AVCaptureVideoPreviewLayer }
     
-    // 持有 ViewModel 提供的闭包
-    var filterImageProvider: ((CVPixelBuffer) -> CIImage?)?
-    var filterRenderer: ((CIImage, AVCaptureVideoPreviewLayer) -> Void)?
-    var filterRemover: (() -> Void)?
+    // 移除了滤镜相关的闭包
     
     private var currentPixelBuffer: CVPixelBuffer? // 缓存当前的 pixel buffer
     
@@ -152,30 +133,16 @@ final class PreviewView: UIView {
                 }
             }
         } else if keyPath == "bounds", object as? PreviewView === self {
-             // 当 PreviewView 大小改变时，同步滤镜覆盖层
-             syncFilterOverlayWithCurrentFrame()
+             // 当 PreviewView 大小改变时，不需要同步滤镜覆盖层
+             // 移除了滤镜同步调用
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
     
-    /// 同步滤镜覆盖层与当前帧（如果有的话）
+    /// 移除了滤镜覆盖层同步功能
     func syncFilterOverlayWithCurrentFrame() {
-        guard let pixelBuffer = currentPixelBuffer,
-              let filterImageProvider = self.filterImageProvider,
-              let filterRenderer = self.filterRenderer else {
-            // 如果没有帧数据或闭包，移除覆盖层
-            filterRemover?()
-            return
-        }
-        
-        // 应用滤镜并渲染
-        if let filteredImage = filterImageProvider(pixelBuffer) {
-            filterRenderer(filteredImage, self.videoPreviewLayer)
-        } else {
-            // 如果没有滤镜或滤镜处理失败，移除覆盖层
-            filterRemover?()
-        }
+        // 移除了滤镜相关功能
     }
     
     /// 当 ViewModel 通过 CameraService 收到新的视频帧时调用
@@ -184,8 +151,8 @@ final class PreviewView: UIView {
         // 缓存当前帧
         currentPixelBuffer = pixelBuffer
         
-        // 应用滤镜并渲染
-        syncFilterOverlayWithCurrentFrame()
+        // 移除了滤镜应用和渲染
+        print("接收到新的视频帧，但滤镜功能已移除")
     }
     
     /// 在 View 被销毁时调用
@@ -193,8 +160,7 @@ final class PreviewView: UIView {
         // 移除观察者
         videoPreviewLayer.removeObserver(self, forKeyPath: "readyForDisplay")
         self.removeObserver(self, forKeyPath: "bounds")
-        // 移除滤镜覆盖层
-        filterRemover?()
+        // 移除了滤镜覆盖层移除功能
     }
     
     deinit {
@@ -208,7 +174,7 @@ struct BottomControlBar: View {
     let isCapturing: Bool
     let galleryAction: () -> Void
     let captureAction: () -> Void
-    let filterAction: () -> Void
+    // 移除了滤镜动作
     
     var body: some View {
         HStack(spacing: 50) {
@@ -218,8 +184,7 @@ struct BottomControlBar: View {
             // 拍照按钮
             CaptureButton(isCapturing: isCapturing, action: captureAction)
             
-            // 滤镜按钮
-            ControlButton(iconName: "camera.filters", action: filterAction)
+            // 移除了滤镜按钮
         }
         .padding(.vertical, 20)
         .frame(maxWidth: .infinity)
