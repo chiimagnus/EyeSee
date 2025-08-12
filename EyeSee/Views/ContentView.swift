@@ -59,10 +59,6 @@ struct ContentView: View {
                 },
                 captureAction: {
                     viewModel.capturePhoto()
-                },
-                // 移除了滤镜动作
-                filterAction: {
-                    // 移除了滤镜切换功能
                 }
             )
         }
@@ -140,10 +136,10 @@ final class PreviewView: UIView {
         }
     }
     
-    /// 移除了滤镜覆盖层同步功能
-    func syncFilterOverlayWithCurrentFrame() {
-        // 移除了滤镜相关功能
-    }
+    // 移除了滤镜覆盖层同步功能
+    // func syncFilterOverlayWithCurrentFrame() {
+    //     // 移除了滤镜相关功能
+    // }
     
     /// 当 ViewModel 通过 CameraService 收到新的视频帧时调用
     /// - Parameter pixelBuffer: 新的视频帧数据

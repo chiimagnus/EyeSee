@@ -104,10 +104,11 @@ class CameraViewModel: PreviewViewDelegate { // 遵循新的代理协议
         cameraService.capturePhoto()
     }
 
-    func switchFilter() {
-        // 移除了动物视觉滤镜切换功能
-        print("滤镜功能已移除")
-    }
+    // 移除了动物视觉滤镜切换功能
+    // func switchFilter() {
+    //     // 移除了动物视觉滤镜切换功能
+    //     print("滤镜功能已移除")
+    // }
 
     func openGallery() {
         // TODO: 后续接入 PhotosPicker
