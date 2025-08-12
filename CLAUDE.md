@@ -57,43 +57,48 @@ The project follows a Neo-Brutalism design language as defined in:
 
 All UI implementations should follow these design principles with bold colors, thick black borders, and playful interactions.
 
-## Code Structure
-
-The codebase follows standard SwiftUI patterns with MVVM architecture:
-- MVVM architecture (Model-View-View-Model)
-- SwiftData for data persistence
-- SwiftUI for UI components
-- Metal for high-performance image processing filters (to be implemented)
-- AVFoundation for camera capture
-- Photos framework for saving images
-
-### Architecture Details
+## Architecture Requirements
 
 Following the MVVM-SwiftUI best practices defined in `.cursor/rules/mvvm-swiftui-best-practices.mdc`:
 
-1. **Models** (`EyeSee/Models/`):
-   - Pure data structures, no business logic
-   - Use `@Model` macro for SwiftData
-   - No direct references to SwiftUI or Combine
+### Models (`EyeSee/Models/`)
+- Pure data structures, no business logic
+- Use `@Model` macro for SwiftData
+- No direct references to SwiftUI or Combine
 
-2. **ViewModels** (`EyeSee/ViewModels/`):
-   - Handle business logic and state management
-   - Use `@Observable` macro (iOS17+/macOS14+)
-   - Use `@Published` properties for state management
-   - Use Combine for reactive data flow
-   - No direct references to SwiftUI Views
+### ViewModels (`EyeSee/ViewModels/`)
+- Handle business logic and state management
+- Use `@Observable` macro (iOS17+/macOS14+)
+- Use `@Published` properties for state management
+- Use Combine for reactive data flow
+- No direct references to SwiftUI Views
 
-3. **Views** (`EyeSee/Views/`):
-   - Pure UI presentation, no business logic
-   - Use SwiftUI for all UI components
-   - Use `@State` and `@Bindable` for state management
-   - Componentized and reusable
+### Views (`EyeSee/Views/`)
+- Pure UI presentation, no business logic
+- Use SwiftUI for all UI components
+- Use `@State` and `@Bindable` for state management
+- Componentized and reusable
 
-4. **Services** (`EyeSee/Services/`):
-   - Handle platform-specific functionality (camera, photo library)
-   - Encapsulate complex operations
-   - Publish state changes via Combine or async/await
-   - No direct references to ViewModels or Views
+### Services (`EyeSee/Services/`)
+- Handle platform-specific functionality (camera, photo library)
+- Encapsulate complex operations
+- Publish state changes via Combine or async/await
+- No direct references to ViewModels or Views
+
+## Camera Architecture
+
+The camera system uses a sophisticated real-time filtering architecture:
+
+1. **CameraService** - Manages AVCaptureSession and provides video frame data via `PreviewViewDelegate`
+2. **CameraViewModel** - Implements `PreviewViewDelegate` to receive real-time video frames and coordinates filter application
+3. **PreviewView** - Custom UIView that displays camera preview and renders filtered overlays using CALayer
+4. **AnimalVisionFilterService** - Applies animal vision filters using CoreImage color matrices
+
+Key data flow:
+- CameraService captures video frames and passes them to ViewModel via delegate
+- ViewModel applies filters using AnimalVisionFilterService
+- Filtered images are rendered as overlays on the preview layer
+- All processing happens on background threads with UI updates on main thread
 
 When adding new features:
 1. Create new SwiftUI views in the `EyeSee/Views/` directory following the feature-based structure
